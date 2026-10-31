@@ -1,0 +1,21 @@
+{
+  "name": "api-quality-lab",
+  "version": "1.0.0",
+  "main": "src/api.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "playwright test",
+    "triage": "node src/triage.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
