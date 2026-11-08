@@ -2,7 +2,7 @@
 
 API Quality Lab is a free, local QA portfolio project. It pairs a small Node.js task API with Playwright API tests and an optional AI-assisted triage step powered by a local Ollama model.
 
-The project uses synthetic task data only. The API binds to the loopback interface and does not call a hosted AI service.
+The project uses synthetic task data only. The API binds to the loopback interface by default; `HOST` can be overridden for the optional deployment lesson. The triage tool does not call a hosted AI service.
 
 ## Requirements
 
@@ -88,7 +88,7 @@ flowchart LR
 ### API and tests
 
 - `src/api.js` creates an HTTP server with a new in-memory task store for every server instance.
-- `src/server.js` starts the standalone API on loopback.
+- `src/server.js` starts the standalone API on loopback by default. Set `HOST` to change the bind address for deployment.
 - `tests/fixtures/api.fixture.js` starts and closes an isolated API server for every test on an ephemeral port.
 - `tests/api/tasks.spec.js` verifies response envelopes, headers, valid and invalid titles, task completion and deletion, and missing IDs.
 - `playwright.config.js` enables parallel execution and writes both a readable console report and a JSON report.
@@ -109,11 +109,18 @@ Run triage after each Playwright execution to add that report to the run history
 - [Test plan](docs/test-plan.md)
 - [Controlled bug report](docs/bug-reports/BUG-001-whitespace-only-task-title.md)
 - [Lesson review rules](lessons/README.md)
+- [CI/CD from zero: the beginner's guide](lessons/ci-cd-do-zero.md)
+
+## CI/CD learning project
+
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs `npm ci` and the Playwright API tests for pull requests into `main` and pushes to `main`. It saves the JSON test report as a downloadable workflow artifact. If you configure the optional Render settings described in the guide, a successful push to `main` also triggers a deployment.
+
+The API stays bound to `127.0.0.1` on your computer by default. For a Render web service, set `HOST` to `0.0.0.0`; the guide explains why and walks through the setup.
 
 ## Limitations
 
 - Task data is in memory and is lost when its server instance stops.
-- The API is a local portfolio example; it has no authentication, persistence, deployment, or production hardening.
+- The API is a learning example; it has no authentication, persistence, or production hardening. The optional Render deployment is for synthetic demo data only.
 - Ollama analysis is optional and advisory. The small local model can misclassify failures or propose poor lessons. Check every classification and proposal against the test report and test plan.
 - The triage agent cannot execute model suggestions, modify application or test source files, or write to `lessons/approved.md`.
 - The run history records a triage invocation, not every `npm.cmd test` command automatically. Run triage after a test run to preserve its summary and analysis.
