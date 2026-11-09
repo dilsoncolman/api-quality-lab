@@ -109,7 +109,7 @@ Run triage after each Playwright execution to add that report to the run history
 - [Test plan](docs/test-plan.md)
 - [Controlled bug report](docs/bug-reports/BUG-001-whitespace-only-task-title.md)
 - [Lesson review rules](lessons/README.md)
-- [CI/CD from zero: the beginner's guide](lessons/ci-cd-do-zero.md)
+- [CI/CD from zero: the beginner's guide](lessons/ci-cd-from-zero.md)
 
 ## CI/CD learning project
 
